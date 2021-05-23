@@ -1,4 +1,4 @@
-# Must have Sass mixins
+# Must have Sass mixins usage
 
 personal collection of usefull SASS mixins
 
