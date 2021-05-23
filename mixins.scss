@@ -1,3 +1,5 @@
+
+// Reset List Elements
 @mixin noOuterDimensions {
 	margin: 0;
 	border: 0 none;
@@ -11,6 +13,7 @@
 	list-style: none;
 }
 
+// Round Corners
 @mixin roundedCorners($radius: 5px) {
 	border-radius: $radius;
 	-moz-border-radius: $radius;
@@ -20,12 +23,14 @@
 	-webkit-background-clip: padding-box;
 }
 
+// Shadow
 @mixin shadow($settings) {
 	box-shadow: $settings;
 	-moz-box-shadow: $settings;
 	-webkit-box-shadow: $settings;
 }
 
+// Background Gradient
 @mixin backgroundGradient($settings) {
 	background-image: linear-gradient($settings);
 	background-image: -o-linear-gradient($settings);
@@ -34,11 +39,89 @@
 	background-image: -webkit-linear-gradient($settings);
 }
 
-@mixin opacity($value) {
-	opacity: $value;
-	filter: unquote("alpha(opacity=#{($value * 100)})");
+// Backgroundsize
+@mixin backgroundSize($tuplePercent) {
+	background-size: $tuplePercent;
+	-moz-background-size: $tuplePercent;
+	-webkit-background-size: $tuplePercent;
 }
 
+// Set a rem font size with pixel fallback
+@function calculateRem($size) {
+	$remSize: $size / 16px;
+	@return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+	font-size: $size;
+	font-size: calculateRem($size);
+}
+
+// Breakpoints
+@mixin bp-large {
+	@media only screen and (max-width: 60em) {
+		@content;
+	}
+}
+
+@mixin bp-medium {
+	@media only screen and (max-width: 40em) {
+		@content;
+	}
+}
+
+@mixin bp-small {
+	@media only screen and (max-width: 30em) {
+		@content;
+	}
+}
+
+// SVG background images with PNG and retina fallback
+$image-path: '../img' !default;
+$fallback-extension: 'png' !default;
+$retina-suffix: '@2x';
+@mixin background-image($name, $size:false){
+	background-image: url(#{$image-path}/#{$name}.svg);
+	@if($size){
+		background-size: $size;
+	}
+	.no-svg &{
+		background-image: url(#{$image-path}/#{$name}.#{$fallback-extension});
+
+		@media only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+		background-image: url(#{$image-path}/#{$name}#{$retina-suffix}.#{$fallback-extension});
+		}
+	}
+}
+
+// Animations and keyframes
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}
+	@-ms-keyframes #{$animation-name} {
+		@content;
+	}
+	@-o-keyframes #{$animation-name} {
+		@content;
+	}
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
+
+@mixin animation($str) {
+	-webkit-animation: #{$str};
+	-moz-animation: #{$str};
+	-ms-animation: #{$str};
+	-o-animation: #{$str};
+	animation: #{$str};
+}
+
+// Transitions
 @mixin transition($property: all, $time: .5s) {
 	// transition times
 	transition-duration: $time;
@@ -60,8 +143,33 @@
 	-webkit-transition-timing-function: ease-in-out;
 }
 
-@mixin backgroundSize($tuplePercent) {
-	background-size: $tuplePercent;
-	-moz-background-size: $tuplePercent;
-	-webkit-background-size: $tuplePercent;
+// Cross browser opacity
+@mixin opacity($opacity) {
+	opacity: $opacity;
+	$opacity-ie: $opacity * 100;
+	filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+// Clearfix
+%clearfix {
+	*zoom: 1;
+	&:before, &:after {
+	  content: " ";
+	  display: table;
+	}
+	&:after {
+	  clear: both;
+	}
+}
+
+// Visually hide an element
+%visuallyhidden {
+	margin: -1px;
+	padding: 0;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip: rect(0, 0, 0, 0);
+	position: absolute;
 }
