@@ -1,0 +1,34 @@
+// import global mixins
+@import "Mixins.scss";
+
+body {
+	@include noOuterDimensions;
+	/* unquote workaround for arbitrary number of parameters */
+	@include backgroundGradient(unquote("#ccc, #fff 50%"));
+}
+
+ul.menu {
+	@include resetList;
+	li {
+		@include resetList;
+		float: left;
+	}
+}
+
+input[type=text] {
+	@include roundedCorners;
+}
+
+button {
+	&:hover {
+		@include shadow(0 1px 2px rgba(#000, .15));
+	}
+}
+
+.someElement {
+	@include opacity(.5);
+	@include transition;
+	&:hover {
+		@include opacity(1);
+	}
+}
