@@ -200,3 +200,8 @@ $retina-suffix: "@2x";
 @mixin imageZoom {
   transform: scale(1.1);
 }
+
+// Scroll span
+@mixin scrollSnap($direction: y) {
+  scroll-snap-type: y mandatory;
+}
