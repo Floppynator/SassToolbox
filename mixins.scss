@@ -195,3 +195,8 @@ $retina-suffix: "@2x";
   -webkit-mask-image: url($imageUrl);
   mask-image: url($imageUrl);
 }
+
+// Image zoom
+@mixin imageZoom {
+  transform: scale(1.1);
+}
