@@ -178,7 +178,7 @@ $retina-suffix: "@2x";
 }
 
 // Mask Image
-@mixin mask($transparent: 5%, $color: #000, $percent: 75%) {
+@mixin maskGradient($transparent: 5%, $color: #000, $percent: 75%) {
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent $transparent,
@@ -189,4 +189,9 @@ $retina-suffix: "@2x";
     transparent $transparent,
     $color $percent
   );
+}
+
+@mixin maskWithImage($imageUrl) {
+  -webkit-mask-image: url($imageUrl);
+  mask-image: url($imageUrl);
 }
